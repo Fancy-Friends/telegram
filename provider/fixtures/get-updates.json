@@ -1,0 +1,36 @@
+{
+  "$comment": "Telegram's envelope, reproduced rather than flattened. getUpdates answers {ok, result: [update, ...]} and an update is a discriminated envelope -- update_id plus exactly ONE of message, edited_message, callback_query, ... It is tempting to flatten result[0].message.text into `text` for tidiness, and then nobody can look the field up in Telegram's documentation and every other Telegram node has to repeat the same flattening identically or the graph is inconsistent with itself.",
+  "operation": "get_updates",
+
+  "values": {
+    "$comment": "Drawn ONCE, before the response, and referenced by $ref. The chat id and the sender id are the same number for a private chat, and two independent draws would produce a faked update that cannot happen -- an author who writes {{ $json.update.message.chat.id }} to reply would be testing against a shape Telegram never sends. Declaration order IS draw order: these come off the deterministic stream before anything in `response`, so moving one changes every value after it.",
+    "chat_id": { "$fake": "int", "min": 100000000, "max": 999999999 }
+  },
+
+  "response": {
+    "ok": true,
+    "result": [
+      {
+        "update_id": { "$fake": "int", "min": 100000, "max": 999999 },
+        "message": {
+          "message_id": { "$fake": "int", "min": 1, "max": 9999 },
+          "date": 1767225600,
+          "text": { "$config": "sampleText", "as": "string", "default": "hello from the faker" },
+          "chat": {
+            "id": { "$ref": "chat_id" },
+            "type": "private",
+            "first_name": "Ada",
+            "username": "ada_example"
+          },
+          "from": {
+            "id": { "$ref": "chat_id" },
+            "is_bot": false,
+            "first_name": "Ada",
+            "username": "ada_example",
+            "language_code": "en"
+          }
+        }
+      }
+    ]
+  }
+}

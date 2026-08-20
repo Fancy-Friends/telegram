@@ -1,0 +1,38 @@
+{
+  "$comment": "THE hand-written part. Four packages -- ui, js, php, py -- are generated from this directory and are never edited. Fix this file, then regenerate.",
+
+  "connectorApi": 1,
+
+  "service": "telegram",
+  "title": "Telegram",
+  "domain": "messaging",
+  "docs": "https://core.telegram.org/bots/api",
+
+  "auth": "token_in_path",
+  "requires": ["botToken"],
+  "authorize": {
+    "kind": "path",
+    "credential": "botToken",
+    "prefix": "/bot",
+    "sandboxSuffix": "/test",
+    "$comment": "The bot token is a PATH SEGMENT, not a header -- https://api.telegram.org/bot<token>/getUpdates -- and the test environment is a further `/test` AFTER the token. So this is the first provider whose auth and whose estate are the same decision expressed in the URL, which is why `authorize` has always been handed the resolved mode. The token therefore ends up in the request URL, where access logs and error reporters will record it. That is Telegram's design, not ours; a host should keep its own logging away from it."
+  },
+
+  "sandbox": "separate-account",
+  "baseUrls": {
+    "live": "https://api.telegram.org",
+    "sandbox": "https://api.telegram.org"
+  },
+  "sandboxNote": "Telegram's test environment is a genuinely SEPARATE ACCOUNT: you create a new account inside it and register a new bot there, so the sandbox credential is a different token rather than the same one pointed elsewhere. The `/test` path segment is how you reach it; the account is what makes it separate. Flood limits are NOT relaxed there, so it is a place to test, not a place to hammer.",
+
+  "encoding": "json",
+
+  "credentialFields": [
+    {
+      "key": "botToken",
+      "label": "Bot token",
+      "secret": true,
+      "help": "From @BotFather — 123456:ABC-DEF… . A bot registered in the test environment is a DIFFERENT bot with a different token; the same token does not reach both."
+    }
+  ]
+}
