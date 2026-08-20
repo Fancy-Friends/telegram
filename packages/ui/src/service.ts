@@ -49,6 +49,7 @@ export const TELEGRAM_CREDENTIALS = [
   {
     "key": "botToken",
     "label": "Bot token",
+    "scope": "account",
     "secret": true,
     "help": "From @BotFather — 123456:ABC-DEF… . A bot registered in the test environment is a DIFFERENT bot with a different token; the same token does not reach both."
   }
