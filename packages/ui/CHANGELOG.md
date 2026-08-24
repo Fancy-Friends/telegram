@@ -8,6 +8,31 @@ The four packages share one version, because they are generated from one
 `provider/` definition and a version that meant something different in each
 would be a version nobody could reason about.
 
+## [0.2.0] — 2026-08-24
+
+### Changed
+
+- **`@particle-academy/telegram-ui` is now an OPTIONAL PEER dependency of `@particle-academy/telegram-js`, not a hard one.**
+
+`./flow` needs it; nothing else does. It was a hard dependency, and because
+`@particle-academy/telegram-ui` itself peer-depends on `fancy-flow` — which npm 7+ installs
+automatically — `npm install @particle-academy/telegram-js` pulled the **entire flow engine**
+onto disk for a consumer who only wanted to call the API. Roughly **18 MB
+became 874 KB**, and the package works exactly as before:
+
+```js
+import { telegram… } from "@particle-academy/telegram-js";
+// an injected transport, no flow engine anywhere
+```
+
+**This is breaking if you use `@particle-academy/telegram-js/flow`.** Add `@particle-academy/telegram-ui` to your own
+dependencies — it was always being installed for you, and now it is declared.
+Everything importing only the main entry point is unaffected.
+
+The fix is on this edge rather than on `@particle-academy/telegram-ui` → `fancy-flow`: the ui package
+genuinely requires fancy-flow, since it calls `defineConnectorKind`, and marking
+that peer optional would be a lie about what it needs.
+
 ## [0.1.0] — 2026-08-20
 
 First release. Ported from the vendored connector at
@@ -60,3 +85,4 @@ alternative is a community wrapper, which is exactly the dependency the kit's
 rules say not to take on a consumer's behalf.
 
 [0.1.0]: https://github.com/Fancy-Friends/telegram/releases/tag/v0.1.0
+[0.2.0]: https://github.com/Fancy-Friends/telegram/releases/tag/v0.2.0
