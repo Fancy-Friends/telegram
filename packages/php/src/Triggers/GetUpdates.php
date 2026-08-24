@@ -40,9 +40,9 @@ final class GetUpdates
      * Build the query string for one poll.
      *
      * @param array<string,mixed> $config
-     * @return array<string,scalar>
+     * @return array<string,mixed>|\stdClass
      */
-    public static function query(array $config): array
+    public static function query(array $config): array|\stdClass
     {
         $offset = $config['offset'] ?? null;
         if (($offset !== null && $offset !== '') && ! (is_numeric($offset) && (float) $offset === floor((float) $offset))) {
@@ -73,6 +73,7 @@ final class GetUpdates
             $body['allowed_updates'] = json_encode(self::allowedUpdatesList($config['allowedUpdates'] ?? null)) ?: '[]';
         }
 
+        $body = $body === [] ? new \stdClass() : $body;
         return $body;
     }
 

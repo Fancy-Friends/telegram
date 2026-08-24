@@ -34,7 +34,7 @@
     "packages/php/README.md": "011634df547e5d5363c9ba385c00f89a869ce4cc95970110270212999132251e",
     "packages/php/src/Telegram.php": "55337ffe5e45566c60b9fdac00e823d41420895d3e27f08074a92035cfb21976",
     "packages/php/src/TelegramFaker.php": "32cb5542bd5da2c0dac22665c9806c36c538fe5cdb57231bfa674b4935f15849",
-    "packages/php/src/Triggers/GetUpdates.php": "b74a6bae962755b92e8eef9017905e81e5ec7687b8e455390905f533665d4e52",
+    "packages/php/src/Triggers/GetUpdates.php": "b425d33352da41d85e97a27c6a5d5417a4bd00ebb509f002a2aa6a5b1ef5a399",
     "packages/php/tests/FakerTest.php": "59a3b37807ceaf6334f4c126285aa2fdc7f6264124a55e71e49142bf0fd10328",
     "packages/py/CHANGELOG.md": "975ad230f2f7ce47a89af920c78995063a198972f8287adfd81311f1170a1564",
     "packages/py/LICENSE": "9c194b64f52c76e677eb84a3e30f369c82727ea58abe50670d5de3f9ccd23270",
