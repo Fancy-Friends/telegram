@@ -27,6 +27,40 @@ dependencies.
 subject to the kit's full approval bar, and one per provider is hundreds of
 dependencies nobody is tracking.
 
+## Setting it up
+
+Everything below is generated from `provider/manifest.json`, so it cannot disagree with what the packages do.
+
+### Credentials
+
+A Telegram connection holds 1 value.
+
+Every value here is `account` scope: one per connected account, not one per installation.
+
+| Field | Scope | Secret | Where it comes from |
+|---|---|---|---|
+| **Bot token** | per connected account | **secret** | From @BotFather — 123456:ABC-DEF… . A bot registered in the test environment is a DIFFERENT bot with a different token; the same token does not reach both. |
+
+### The estate
+
+Telegram has a test estate on the same host, reached with credentials from a SEPARATE test account you register. Selecting sandbox mode uses those credentials.
+
+> Telegram's test environment is a genuinely SEPARATE ACCOUNT: you create a new account inside it and register a new bot there, so the sandbox credential is a different token rather than the same one pointed elsewhere. The `/test` path segment is how you reach it; the account is what makes it separate. Flood limits are NOT relaxed there, so it is a place to test, not a place to hammer.
+
+## What it can do
+
+### Triggers
+
+#### `get_updates` — Telegram message
+
+Start a run when a Telegram bot receives an update (long polling, not a webhook).
+
+Polls Telegram, no more often than every 1 seconds.
+
+**You have to set this up with the provider first:**
+
+The host polls getUpdates on a schedule and persists the `offset` cursor between calls, passing the last `cursor` back in — Telegram queues nothing once an offset has acknowledged it, so a lost cursor is lost updates. getUpdates and setWebhook are MUTUALLY EXCLUSIVE for one bot: a host running both gets neither.
+
 ## Run it before you have credentials
 
 Every operation ships a **faker**, whether or not Telegram has a sandbox. Set a
