@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ParticleAcademy\Telegram;
 
+use ParticleAcademy\Connectors\FakeValues;
 use ParticleAcademy\Connectors\Mode;
 use ParticleAcademy\Connectors\PreparedRequest;
 use ParticleAcademy\Connectors\SandboxKind;
@@ -62,7 +63,12 @@ final class Telegram
             ],
             requires: self::REQUIRES,
             authorize: self::authorize(...),
-            faker: TelegramFaker::respond(...),
+            // The core calls a faker ($operation, $config, $fake, $input); respond()
+            // takes TypeScript's FakeRequest shape. This is the translation.
+            faker: static fn (string $operation, array $config, FakeValues $fake, mixed $input = null): mixed => TelegramFaker::respond(
+                $operation,
+                ['config' => $config, 'fake' => $fake, 'input' => $input],
+            ),
         );
     }
 
