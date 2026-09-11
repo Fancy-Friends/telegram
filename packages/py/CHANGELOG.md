@@ -8,6 +8,20 @@ The four packages share one version, because they are generated from one
 `provider/` definition and a version that meant something different in each
 would be a version nobody could reason about.
 
+## [0.3.3] — 2026-09-11
+
+### Added
+
+- **`fancy-flow-php` executors for every node.** `src/Flow/` carries one `#[FlowNode]` class per action and trigger, and `TelegramFlow::EXECUTORS` lists them.
+
+A Laravel host running fancy-flow-php could show this connector's nodes in its editor and could not run them: `particle-academy/telegram-php` shipped the request builders and no executor. Each one is the PHP twin of the executor in `@particle-academy/telegram-js` — the same kind, the same request, the same value on `out` — and an unsafe-to-replay action derives its idempotency key from the run and the node, so a retried durable run sends the key it sent the first time.
+
+Register them by adding `vendor/particle-academy/telegram-php/packages/php/src/Flow` to `config('fancy-flow.discover')`. `particle-academy/fancy-flow-php` is SUGGESTED, not required, and conflicts outside `>=0.51.0 <2.0`, the range the executors were tested under. Nothing outside `Flow\` needs it.
+
+### Fixed
+
+- **Fake mode through `ConnectorClient` threw.** `Telegram::descriptor()` handed the connector core its faker as `TelegramFaker::respond(...)`, which takes `($operation, $request)`; the core calls a faker `($operation, $config, $fake, $input)`. So `$config` arrived as `$request` and every fake call died on "Call to a member function … on null". The descriptor now translates between the two. Calling `TelegramFaker::respond()` directly — what this package's own tests do, which is why they never saw it — is unchanged.
+
 ## [0.3.2] — 2026-09-06
 
 ### Changed
