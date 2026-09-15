@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ParticleAcademy\Telegram\Triggers;
 
-use ParticleAcademy\Connectors\DeliveryMechanism;
 use ParticleAcademy\Connectors\ConnectorConfigException;
+use ParticleAcademy\Connectors\DeliveryMechanism;
 
 /*
  * GENERATED FILE — do not edit.
