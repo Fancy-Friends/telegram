@@ -48,7 +48,7 @@
     "packages/py/pyproject.toml": "1b381f22f651551b3edb7e6477269a132055a1b7ec3cb8cc6694c2b2f5939782",
     "packages/py/src/fancy_telegram/__init__.py": "9d1a3120555ac8606c37575ba9f5bd6dc1690a613562a4ead6a2ece6f8e2f389",
     "packages/py/src/fancy_telegram/_fake.py": "8d7f365970457f8643bd71df8ded4abe5366f642f189335c690d294afe9ac61b",
-    "packages/py/src/fancy_telegram/_runtime.py": "05f43cc40c475f947d66b54028d29235c29941712e508a7e544d232e033c1be9",
+    "packages/py/src/fancy_telegram/_runtime.py": "b0d9825691b2795293d945125bde551a2debd78b196cf7fec50db2de75d1fe82",
     "packages/py/src/fancy_telegram/faker.py": "d450076fd823c3977647be36dba3d3916f3c013001621cce2f3efabaa7aab516",
     "packages/py/src/fancy_telegram/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "packages/py/src/fancy_telegram/service.py": "d30c64615ea74332cf06e51410df52b70355aa92b3dbb8edd746ca9aeee4c8ac",
