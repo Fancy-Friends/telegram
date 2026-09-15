@@ -48,7 +48,7 @@ final class TelegramFaker
     }
 
     /** @param array<string,mixed> $config */
-    private static function GetUpdates(array $config, mixed $fake): array
+    private static function GetUpdates(array $config, mixed $fake): array|\stdClass
     {
         $boundChatId = $fake->int(100000000, 999999999);
 
