@@ -20,6 +20,6 @@ return [
 
     'credentials' => [
         // Bot token (per connected account, secret).
-        'botToken' => env('TELEGRAM_BOTTOKEN'),
+        'botToken' => env('TELEGRAM_BOT_TOKEN', env('TELEGRAM_BOTTOKEN')),
     ],
 ];
